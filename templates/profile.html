@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/profile.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">HEALTH CARE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('intro')}}">Home</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="dia_img">
+  <img src="https://cdn-icons-png.flaticon.com/128/3004/3004458.png" alt="">
+</div>
+    <div class="type">
+      <h2>PROFILE SETUP</h2>
+    </div>
+
+    <div class="details">
+    <form action="/dd" method="post">
+      <h4>NAME :</h4>
+      <input type="text" name="" value="" id="name">
+      <br>
+      <br>
+      <h4>AGE :</h4>
+      <input type="number" name="" value="" id="age">
+      <br>
+      <br>
+      <h4>GENDER :</h4>
+      <div class="coll col-3 w-40">
+
+        <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+        <select class="form-select" id="select1" name="gender">
+          <option value="">SELECT</option>
+          <option id="g1" value="MALE">MALE</option>
+          <option id="g1" value="FEMALE">FEMALE</option>
+
+        </select>
+      </div>
+      <br>
+      <br>
+      <h4>HEIGHT :</h4>
+      <input type="text" name="" value="" id="height">
+      <br>
+      <br>
+      <h4>WEIGHT :</h4>
+      <input type="text" name="" value="" id="weight">
+      <br>
+      <br>
+      <h4>BP :</h4>
+      <input type="text" name="" value="" id="bp">
+      <br>
+      <br>
+      <h4>ADDRESS :</h4>
+      <textarea rows="4" cols="50" name="comment" form="usrform" id="address">
+        Enter text here...</textarea>
+      <br>
+      <br>
+      <h4>CITY :</h4>
+      <input type="text" name="" value="" id="city">
+      <br>
+      <br>
+      <button type="button" class="btn btn-outline-success" id="submit">SUBMIT</button>
+      <button type="button" class="btn btn-outline-success" id="next">NEXT</button>
+      <br>
+      <br>
+    </form>
+    </div>
+
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAMFHh2fdPJSqvuhPwd56SRzslg1FJZASg",
+    authDomain: "healthcare-8c97a.firebaseapp.com",
+    databaseURL: "https://healthcare-8c97a-default-rtdb.firebaseio.com",
+    projectId: "healthcare-8c97a",
+    storageBucket: "healthcare-8c97a.appspot.com",
+    messagingSenderId: "550232056343",
+    appId: "1:550232056343:web:5fbfe568c8fa8dbfd23252",
+    measurementId: "G-WST1QRJ0GC"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  import{getDatabase,ref,set,update,child,remove}
+  from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+  const db = getDatabase();
+
+  //-------------------------------------------------------------------------------------//
+  var name = document.getElementById("name");
+  var age = document.getElementById("age");
+  var gender = document.getElementById("g1");
+  var height = document.getElementById("height");
+  var weight = document.getElementById("weight");
+  var bp = document.getElementById("bp");
+  var address = document.getElementById("address");
+  var city = document.getElementById("city");
+
+
+  var submit  = document.getElementById("submit");
+
+  //--------------------------------------------------------------------------------------//
+
+  function insertdata(){
+    set(ref(db , "Profile/"+name.value),{
+      Name: name.value,
+      Age: age.value,
+      Gender: gender.value,
+      Height: height.value,
+      Weight: weight.value,
+      Bp: bp.value,
+      Address: address.value,
+      City: city.value,
+
+    })
+    .then(()=>{
+      alert("data stored");
+    })
+    .catch((error)=>{
+      alert("error"+error)
+    });
+  }
+
+
+  function navidate(){
+        window.location.href="{{url_for('hi')}}"
+    }
+    
+    next.addEventListener("click",navidate);
+    submit.addEventListener('click', insertdata);
+  
+
+
+
+
+</script>
+  </body>
+
+
+
+</html>

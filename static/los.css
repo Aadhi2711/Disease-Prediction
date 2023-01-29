@@ -1,0 +1,28 @@
+
+body{
+    font-family: 'Bree Serif', serif;
+  }
+  .lock{
+
+    height: 500px;
+    text-align: center;
+    background-color: #EFA3C8;
+    font-family: 'Bree Serif', serif;
+
+
+  }
+  .sub{
+    text-align: center;
+    margin-top: 150px;
+    font-family: 'Bree Serif', serif;
+  }
+
+.coll{
+  margin-left: 450px;
+  text-align: center;
+  font-family: 'Bree Serif', serif;
+
+}
+.imgg{
+  margin-bottom: 20px;
+}

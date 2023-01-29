@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/kun.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </head>
+  <body style="font-family: 'Bree Serif', serif;">
+    <section class="vh-100" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                <form class="mx-1 mx-md-4">
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" id="form3Example1c" class="form-control" id="Namebox" />
+                      <label class="form-label" for="form3Example1c">Your Name</label>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="email" id="form3Example3c" class="form-control" id="mail" />
+                      <label class="form-label" for="form3Example3c">Your Email</label>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="password" id="form3Example4c" class="form-control" id="Passbox"/>
+                      <label class="form-label" for="form3Example4c">Password</label>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="password" id="form3Example4cd" class="form-control" />
+                      <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                    </div>
+                  </div>
+
+                  <div class="form-check d-flex justify-content-center mb-5">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                    <label class="form-check-label" for="form2Example3">
+                      I agree all statements in <a href="#!">Terms of service</a>
+                    </label>
+                  </div>
+
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="button" class="btn btn-primary btn-lg" id="submit">Register</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="kick">Login now</button>
+                  </div>
+
+                </form>
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAMFHh2fdPJSqvuhPwd56SRzslg1FJZASg",
+  authDomain: "healthcare-8c97a.firebaseapp.com",
+  databaseURL: "https://healthcare-8c97a-default-rtdb.firebaseio.com",
+  projectId: "healthcare-8c97a",
+  storageBucket: "healthcare-8c97a.appspot.com",
+  messagingSenderId: "550232056343",
+  appId: "1:550232056343:web:5fbfe568c8fa8dbfd23252",
+  measurementId: "G-WST1QRJ0GC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+import{getDatabase,ref,set,update,child,remove}
+from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+const db = getDatabase();
+
+//-------------------------------------------------------------------------------------//
+
+var namebox = document.getElementById("Namebox");
+var dob = document.getElementById("dob");
+var Mail = document.getElementById("mail");
+var Password = document.getElementById("Passbox");
+
+var submit  = document.getElementById("submit");
+var kick  = document.getElementById("kick");
+
+//--------------------------------------------------------------------------------------//
+
+function insertdata(){
+  set(ref(db , "Register/"+namebox.value),{
+    Name: namebox.value,
+    Dob: dob.value,
+    Mail: Mail.value,
+    Password: Password.value,
+
+  })
+  .then(()=>{
+    alert("data stored");
+  })
+  .catch((error)=>{
+    alert("error"+error)
+  });
+}
+
+function kicke(){
+    window.location.href="{{url_for('login')}}"
+}
+
+kick.addEventListener('click',kicke)
+submit.addEventListener('click', insertdata);
+
+
+
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+body{
+    background-color: #FAD3E7;
+    font-family: 'Bree Serif', serif;
+  }
+  .type{
+    margin-top: 50px;
+    text-align: center;
+  }
+  .dia_img{
+    margin-top: 50px;
+    text-align: center;
+  }
+  .details{
+    margin: 35px auto 25px;
+    background: white;
+    text-align: center;
+    width: 50%;
+  
+  }
+  .coll{
+    margin-top: 20px;
+    text-align: center;
+    margin-left: 275px;
+  }
+  

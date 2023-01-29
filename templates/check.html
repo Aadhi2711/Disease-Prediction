@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="static/check.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  </head>
+  <body style="font-family: 'Bree Serif', serif;">
+    <nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    
+    <a class="navbar-brand" href="#">HEALTH CARE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{url_for('intro')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('hi')}}">Test</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</nav>
+<div class="aadhi">
+
+
+<div class="dis">
+  <h2>PROFILE</h2> <img src="https://cdn-icons-png.flaticon.com/128/1077/1077012.png" alt="">
+</div>
+<div class="display">
+  <ul id="list">
+
+
+  </ul>
+
+</div>
+
+
+
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+
+
+<script >
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAMFHh2fdPJSqvuhPwd56SRzslg1FJZASg",
+    authDomain: "healthcare-8c97a.firebaseapp.com",
+    databaseURL: "https://healthcare-8c97a-default-rtdb.firebaseio.com",
+    projectId: "healthcare-8c97a",
+    storageBucket: "healthcare-8c97a.appspot.com",
+    messagingSenderId: "550232056343",
+    appId: "1:550232056343:web:5fbfe568c8fa8dbfd23252",
+    measurementId: "G-WST1QRJ0GC"
+  };
+
+// Initialize Firebase
+
+firebase.initializeApp(firebaseConfig);
+
+
+
+  function additems(name,age,gender,height,weight,bp,address,city){
+    var ul=document.getElementById("list");
+
+
+    var _name = document.createElement('h5');
+    var _age = document.createElement('h5');
+    var _gender = document.createElement('h5');
+    var _height = document.createElement('h5');
+    var _weight = document.createElement('h5');
+    var _bp = document.createElement('h5');
+    var _address = document.createElement('h5');
+    var _city = document.createElement('h5');
+
+
+
+
+    _name.innerHTML='Name: '+name;
+    _age.innerHTML='AGE: '+age;
+    _gender.innerHTML='Gender: '+gender;
+    _height.innerHTML='Height: '+height;
+    _weight.innerHTML='Weight: '+weight;
+    _bp.innerHTML='BP: '+bp;
+    _address.innerHTML='Address: '+address;
+    _city.innerHTML='City: '+city;
+
+
+
+    ul.appendChild(_name);
+    ul.appendChild(_age);
+    ul.appendChild(_gender);
+    ul.appendChild(_height);
+    ul.appendChild(_weight);
+    ul.appendChild(_bp);
+    ul.appendChild(_address);
+    ul.appendChild(_city);
+
+  }
+
+
+  function FetchAllData(){
+    firebase.database().ref('Profile').once('value',function(snapshot){
+      snapshot.forEach(
+        function(ChildSnapShot){
+          let name = ChildSnapShot.val().Name;
+          let age = ChildSnapShot.val().Age;
+          let gender = ChildSnapShot.val().Gender;
+          let height = ChildSnapShot.val().Height;
+          let weight = ChildSnapShot.val().Weight;
+          let bp = ChildSnapShot.val().Bp;
+          let address = ChildSnapShot.val().Address;
+          let city = ChildSnapShot.val().City;
+
+
+          additems(name,age,gender,height,weight,bp,address,city);
+        }
+      );
+    });
+  }
+
+
+window.onload = FetchAllData;
+</script>
+  </body>
+</html>

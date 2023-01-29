@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/login.css">
+  </head>
+  <body style="font-family: 'Bree Serif', serif;">
+
+    <br>
+    <br>
+    <br>
+    <br>
+    
+  <section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form>
+            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+              <p class="lead fw-normal mb-0 me-3">Sign in </p>
+              
+            </div>
+
+            <div class="divider d-flex align-items-center my-4">
+              <p class="text-center fw-bold mx-3 mb-0">Or</p>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="text" id="name1" class="form-control form-control-lg"
+                placeholder="Enter a valid email address" name="name" />
+              <label class="form-label" for="form3Example3">USERNAME</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <input type="password" id="pass1" class="form-control form-control-lg"
+                placeholder="Enter password" class="password" />
+              <label class="form-label" for="form3Example4">Password</label>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- Checkbox -->
+              <div class="form-check mb-0">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                <label class="form-check-label" for="form2Example3">
+                  Remember me
+                </label>
+              </div>
+              
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="button" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;" id="submit">Login</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="{{url_for('register')}}"
+                  class="link-danger">Register</a></p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+      <!-- Copyright -->
+      <div class="text-white mb-3 mb-md-0">
+        Copyright © 2020. All rights reserved.
+      </div>
+      <!-- Copyright -->
+
+      <!-- Right -->
+      <div>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#!" class="text-white me-4">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="#!" class="text-white">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </div>
+  </section>
+
+
+
+  <script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-analytics.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+apiKey: "AIzaSyAMFHh2fdPJSqvuhPwd56SRzslg1FJZASg",
+authDomain: "healthcare-8c97a.firebaseapp.com",
+databaseURL: "https://healthcare-8c97a-default-rtdb.firebaseio.com",
+projectId: "healthcare-8c97a",
+storageBucket: "healthcare-8c97a.appspot.com",
+messagingSenderId: "550232056343",
+appId: "1:550232056343:web:5fbfe568c8fa8dbfd23252",
+measurementId: "G-WST1QRJ0GC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+import{getDatabase,ref,set,update,child,remove,get}
+from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+const db = getDatabase();
+   var namebox = document.getElementById("name1");
+   var pass1= document.getElementById("pass1");
+   var submit = document.getElementById("submit");
+   var jump = document.getElementById("jump");
+
+   function insertData(){
+       const dbr = ref(db);
+get(child(dbr,"Register/"+namebox.value)).then((snapshot)=>{
+       if(snapshot.exists()){
+         if( pass1.value == snapshot.val().Password){
+           window.location.href="{{url_for('intro')}}";
+           alert("Success!")
+         }
+         else{
+           alert("NO USER FOUND");
+         }
+
+       }
+       else{
+         alert("NO USER FOUND");
+       }
+     }).catch((error)=>{
+       alert("Unsccuessful !"+error);
+     })
+ }
+
+
+
+
+submit.addEventListener("click",insertData);
+</script>
+
+
+
+  </body>
+</html>
